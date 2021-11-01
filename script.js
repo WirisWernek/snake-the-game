@@ -11,6 +11,7 @@ let food = {
   x: Math.floor(Math.random() * 15 + 1) * box,
   y: Math.floor(Math.random() * 15 + 1) * box,
 };
+let pontuacao = 0;
 
 function criarBG() {
   context.fillStyle = "lightgreen";
@@ -62,10 +63,11 @@ function iniciarJogo() {
   if (snake[0].y < 0 && direction == "right") snake[0].y = 15 * box;
   if (snake[0].y < 0 && direction == "left") snake[0].y = 15 * box;
 
+  document.getElementById("mostraplacar").innerHTML = pontuacao;
   for (i = 1; i < snake.length; i++) {
     if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
       clearInterval(jogo);
-      alert("End of Game");
+      document.getElementById("gameover").innerHTML = "End of Game";
     }
   }
 
@@ -93,6 +95,7 @@ function iniciarJogo() {
   } else {
     food.x = Math.floor(Math.random() * 15 + 1) * box;
     food.y = Math.floor(Math.random() * 15 + 1) * box;
+    pontuacao++;
   }
 
   let newHead = {
@@ -100,6 +103,9 @@ function iniciarJogo() {
     y: snakeY,
   };
   snake.unshift(newHead);
+}
+function reload() {
+  document.location.reload(true);
 }
 
 let jogo = setInterval(iniciarJogo, 100);
